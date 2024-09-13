@@ -1,0 +1,61 @@
+//function builds interactive notes display
+//output 2d array of musical notes into row/column format
+const createNotesTable = () => {
+
+    /*
+        need to modify to be dynamic later - number of strings and tunings
+
+        notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
+        assuming standard tuning, next internal array would start at previous array note[i + 5]
+
+        newArray [[]];
+
+        for (let note of notes) {
+            if (note == userEnteredValue) {
+                for (index = 0; index <= 12) {
+                    newArray.push() something something maybe another loop or two
+
+                    would need to loop and push notes until before it hits itself, then breaks
+                        if (var == var) {break} or if (colIndex <= something) {break} ???
+                    would then need to push a new internal array into newArray[[]] until == userEntered stringNum
+                }
+            }
+        }
+    */
+    const musicalNotes = [
+        ["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"],  //B
+        ["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"],  //E
+        ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],  //A
+        ["D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#"],  //D
+        ["G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#"]   //G
+    ];
+}
+
+
+  1    2     3    4    5     6    7     8    9    10    11    12
+["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"],  //A
+
+
+MAJOR   
+
+note    Static index    interval difference (x - root)
+"B      3               ()
+"C#     5               2
+"D#     7               4
+"E      8               5
+"F#     10              7
+"G#     12              9
+"A#     2               -1
+
+MINOR
+
+"B
+"C#
+"D
+"E
+"F#
+"G
+"A
+
+
+
