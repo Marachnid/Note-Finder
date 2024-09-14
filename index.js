@@ -3,6 +3,7 @@
 //initialization method - kept in for control of separate methods/tests
 const init = () => {
 
+
     //output interactive table
     createNotesTable();
 }
@@ -12,6 +13,15 @@ const init = () => {
 //output 2d array of musical notes into row/column format
 const createNotesTable = () => {
 
+    //id references
+    const containerQuery = document.getElementById("notesContainer");
+    const tableQuery = document.getElementById("fretboard");
+    const scaleHighlight = document.getElementById("scaleHighlight");
+    const noteHighlight = document.getElementById("noteHighlight");
+    const minorScale = document.getElementById("minorScale");
+    const majorScale = document.getElementById("majorScale");
+
+    //temporary 5-string bass template
     const musicalNotes = [
         ["B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"],  //B
         ["E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#"],  //E
@@ -21,25 +31,22 @@ const createNotesTable = () => {
     ];
     
 
-    //id references
-    const containerQuery = document.getElementById("notesContainer");
-    const tableQuery = document.getElementById("fretboard");
-    const scaleSwitch = document.getElementById("scaleHighlight");
-
     //initialize hover value
     let hoveredValue = "";
     let hoveredScale = [];
-    let singleSelect = true;
+    let singleHighlight = true;
 
 
-    scaleSwitch.addEventListener("change", () => {
-        if (scaleSwitch.checked) {
-            singleSelect = false;
-        } else {
-            singleSelect = true;
-        }
+    //highlight toggle - was being difficult to separate out
+    //leaving here for now - new options are expected and changes will be made
+    scaleHighlight.addEventListener("change", () => {
+        (scaleHighlight.checked ? singleHighlight = false : null); //if/else doesn't work in this context
     });
-    
+
+    noteHighlight.addEventListener("change", () => {
+        (noteHighlight.checked ? singleHighlight = true : null);
+    });    
+
 
 
     //iterate first layer of array - strings
@@ -59,14 +66,14 @@ const createNotesTable = () => {
             
 
                 //if scale highlight, determine scale values
-                if (!singleSelect) {
+                if (!singleHighlight) {
                     hoveredScale = findScale(musicalNotes, hoveredValue, hoveredScale);
                 }
 
                 //highlight cells
                 cells.forEach(cell => {
-                    (hoveredValue == cell.textContent && singleSelect ? cell.classList.add("highlight") : null);
-                    (hoveredScale.includes(cell.textContent) && !singleSelect ? cell.classList.add("highlight") : null);
+                    (hoveredValue == cell.textContent && singleHighlight ? cell.classList.add("highlight") : null);
+                    (hoveredScale.includes(cell.textContent) && !singleHighlight ? cell.classList.add("highlight") : null);
                 });
             });
 

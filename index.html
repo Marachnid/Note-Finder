@@ -11,25 +11,55 @@
 
     <h1>Note Finder</h1>
 
-
     <div id="notesContainer">
+        <div id="controlsContainer">
 
-        <div class="displayControls">
+            <h2>Highlighter</h2>
+            <div id="highlightControls">
+                <label for="noteHighlight"></label>
+                    <input type="radio" name="highlight" id="noteHighlight" checked>Note Highlight
+                </label>
 
-            <label for="scaleHighlight">Scale Highlight
-                <input type="checkbox" name="highlight" id="scaleHighlight"/>
+                <label for="scaleHighlight">
+                    <input type="radio" name="highlight" id="scaleHighlight"/>Scale Highlight
+                </label>
+            </div>
+
+            <h2>Scale Select</h2>
+            <div id="scaleControls">
+                <label for="minorScale">
+                    <input type="radio" name="scale" id="minorScale" checked>Minor Scale
+                </label>
+
+                <label for="majorScale">
+                    <input type="radio" name="scale" id="majorScale">Major Scale
+                </label>
+            </div>
+
+
+            <!-- WILL NOT BE NEEDED FOR NOW -->
+            <!-- <label for="bass4">
+                <input type="radio" name="instrument" id="bass4">4-String Bass
             </label>
+
+            <label for="bass5">
+                <input type="radio" name="instrument" id="bass5"> 5-String Bass
+            </label>
+
+            <label for="guitar6">
+                <input type="radio" name="instrument" id="guitar6"> 6-String Guitar
+            </label>
+
+            <label for="guitar7">
+                <input type="radio" name="instrument" id="guitar7"> 7-String Guitar
+            </label> -->
         </div>
         
-
         <table id="fretboard"></table>
-
     </div>
 
     <script>
-
         init();
-
     </script>
     
 </body>
