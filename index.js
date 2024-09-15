@@ -3,23 +3,26 @@
 //initialization method - kept in for control of separate methods/tests
 const init = () => {
 
-
     //output interactive table
     createNotesTable();
 }
+
 
 
 //function builds interactive notes display
 //output 2d array of musical notes into row/column format
 const createNotesTable = () => {
 
-    //id references
+    //table creation references
     const containerQuery = document.getElementById("notesContainer");
     const tableQuery = document.getElementById("fretboard");
+
+    //user controls references
     const scaleHighlight = document.getElementById("scaleHighlight");
     const noteHighlight = document.getElementById("noteHighlight");
-    const minorScale = document.getElementById("minorScale");
-    const majorScale = document.getElementById("majorScale");
+    const minorScaleSelect = document.getElementById("minorScale");
+    const majorScaleSelect = document.getElementById("majorScale");
+
 
     //temporary 5-string bass template
     const musicalNotes = [
@@ -31,21 +34,37 @@ const createNotesTable = () => {
     ];
     
 
-    //initialize hover value
+    //initialize values
     let hoveredValue = "";
     let hoveredScale = [];
-    let singleHighlight = true;
+    let singleHighlight = true; //default option
+    let minorScaleToggle = true;      //default option
 
 
-    //highlight toggle - was being difficult to separate out
-    //leaving here for now - new options are expected and changes will be made
-    scaleHighlight.addEventListener("change", () => {
-        (scaleHighlight.checked ? singleHighlight = false : null); //if/else doesn't work in this context
+    /*
+        event listeners were being difficult to seperate out from this function
+        difficulty passing values out of the event listener function and back
+        lots of undefined errors
+        come back to this later
+
+        will need to change as more options are added
+        or logic will need to change for td cell eventListener assignment
+    */
+   noteHighlight.addEventListener("click", () => {
+       (noteHighlight.checked ? singleHighlight = true : null);
+    });    
+    
+    scaleHighlight.addEventListener("click", () => {
+        (scaleHighlight.checked ? singleHighlight = false : null);
+    });
+    
+    minorScaleSelect.addEventListener("click", () => {
+        (minorScaleSelect.checked ? minorScaleToggle = true : null);
     });
 
-    noteHighlight.addEventListener("change", () => {
-        (noteHighlight.checked ? singleHighlight = true : null);
-    });    
+    majorScaleSelect.addEventListener("click", () => {
+        (majorScaleSelect.checked ? minorScaleToggle = false : null);
+    });
 
 
 
@@ -67,13 +86,16 @@ const createNotesTable = () => {
 
                 //if scale highlight, determine scale values
                 if (!singleHighlight) {
-                    hoveredScale = findScale(musicalNotes, hoveredValue, hoveredScale);
-                }
+                    hoveredScale = findScale(musicalNotes, hoveredValue, minorScaleToggle);
+                };
 
-                //highlight cells
+                //loop and highlight cells
                 cells.forEach(cell => {
-                    (hoveredValue == cell.textContent && singleHighlight ? cell.classList.add("highlight") : null);
-                    (hoveredScale.includes(cell.textContent) && !singleHighlight ? cell.classList.add("highlight") : null);
+                    (hoveredValue == cell.textContent && singleHighlight 
+                            ? cell.classList.add("highlight") : null);
+
+                    (hoveredScale.includes(cell.textContent) && !singleHighlight 
+                            ? cell.classList.add("highlight") : null);
                 });
             });
 
@@ -96,31 +118,34 @@ const createNotesTable = () => {
 
 //used to define search area for scales that avoids out of bounds indexes
 //find first occurence of hoveredValue and set index position = first occurence index
-const findScale = (musicalNotes, hoveredValue, hoveredScale) => {
+const findScale = (musicalNotes, hoveredValue, minorScaleToggle) => {
 
     //this has to be manual for now - dynamic limiters/initializers are way overkill for predetermined scales
     const rowLimit = 2;         // ++ controls search zone verticality from [0]
     const colInitializer = 1;   // ++ pushes search zone left side -> right
     const colLimit = 8;         // -- limits search zone right side -> left
+    let hoveredScale = [];
 
 
     for (let rowIndex = 0; rowIndex < rowLimit; rowIndex++) {
         for (let colIndex = colInitializer; colIndex < colLimit; colIndex++) {
             if (musicalNotes[rowIndex][colIndex] === hoveredValue) {
-                console.log(`First occurrence of ${hoveredValue} found at Row: ${rowIndex}, Column: ${colIndex}`);
 
+                //set which scale is selected
+                if (minorScaleToggle) {
 
+                    hoveredScale = minorScale(musicalNotes, rowIndex, colIndex);
 
-                //need some kind of logic here to set which scales to use
-                // hoveredScale = minorScale(musicalNotes, rowIndex, colIndex);
-                hoveredScale = majorScale(musicalNotes, rowIndex, colIndex);
-                console.log(hoveredScale);
+                } else if (!minorScaleToggle) {
+
+                    hoveredScale = majorScale(musicalNotes, rowIndex, colIndex);
+                }
+
                 return hoveredScale;
             }
         }
     }
 }
-
 
 
 //convert into separate file later on - would need to implement Node.js to separate

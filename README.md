@@ -1,7 +1,10 @@
 # Note-Finder
 Produces an interactive display of a guitar-like fretboard
 
-
+THOUGHTS
+1. I think I can probably just separate event listeners from outputTable entirely
+    - They already loop through the array themselves, I don't think they need to be
+      kept inside of the table creation loop
 
 Development Plan
 1. Finish UI components: switches between scale and single highlight, and which scale to highlight if true

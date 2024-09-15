@@ -59,3 +59,54 @@ MINOR
 
 
 
+
+
+
+/*
+    notes for understanding this
+    1. targeting parent element
+    2. adding event listener on "change"
+    3. IIFE where we pass in the event itself
+    4. IF statement uses the event like an object
+        the event is tied to the target which is matched to radio and its value
+        if value === xyz, do something
+
+*/
+
+const toggleHighlight = (singleHighlight) => {
+
+    //
+    const highlightContainer = document.getElementById("highlightControls");
+
+    highlightContainer.addEventListener("change", function(event) {
+
+        // let singleHighlight;
+
+
+        if (event.target && event.target.matches("input[type='radio']")) {
+
+            if (event.target.value === "noteHighlight") {
+
+                singleHighlight = true;
+
+                // extractor(singleHighlight);
+
+            } else if (event.target.value === "scaleHighlight") {
+
+                singleHighlight = false;
+
+                // extractor(singleHighlight);
+
+
+            } else {
+                console.log("else");
+                return;
+                
+            }
+        }
+
+        extractor(singleHighlight);
+    });
+}
+
+const extractor = singleHighlight => {return singleHighlight;}
