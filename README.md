@@ -1,19 +1,6 @@
 # Note-Finder
 Produces an interactive display of a guitar-like fretboard
 
-THOUGHTS
-1. I think I can probably just separate event listeners from outputTable entirely
-    - They already loop through the array themselves, I don't think they need to be
-      kept inside of the table creation loop
-
-Development Plan
-1. Finish UI components: switches between scale and single highlight, and which scale to highlight if true
-2. Add basic CSS styling
-4. Add in UI for instrument toggle
-5. Clean up and refactor code where necessary
-
-
-
 VERSION 2
 1. Implement Node.js
 2. Separate scale variable assignment data into MySQL or separate file
