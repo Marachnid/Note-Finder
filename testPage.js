@@ -1,9 +1,30 @@
 "use strict";
 
-console.log("something");
+/* 
+Table for reference
+
+Musical notes
+A   A#  B   C   C#  D   D#  E   F   F#  G   G#
+1   2   3   4   5   6   7   8   9   10  11  12
+
+
+B-Minor scale = B, C#, D, E, F#, G, A, (B)
+
+Interval    position        position difference - ascending index
+B ROOT      = 3             0
+C# 2ND      = 5             2
+D 3RD       = 6             3
+E 4TH       = 8             5
+F# 5TH      = 10            7
+G 6TH       = 11            8
+A 7TH       = 1             10
+*/
+
+
+
+
 
 let loopCounter = 0;
-
 
 //              0    1     2     3   4     5    6     7    8    9     10   11
 let myArray = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
@@ -16,10 +37,6 @@ let hoveredValue = "G#";
 for (let item of myArray) {
     //if we find the hoveredValue
     if (item == hoveredValue) {
-
-        //testing values
-        console.log("Testing finding hovered value - Success");
-        console.log(loopCounter);
 
         //can be abstracted out later - determine scale notes
         for (let scaleNote of myArray) {
@@ -41,7 +58,6 @@ for (let item of myArray) {
                 myArray[(loopCounter + 7) % myArray.length],
                 myArray[(loopCounter + 8) % myArray.length],
                 myArray[(loopCounter + 10) % myArray.length]
-
             );
             break;
         }  
@@ -50,124 +66,49 @@ for (let item of myArray) {
 }
 
 
-// console.log(minorArray);
+console.log(minorArray);
 
-// for (let note of minorArray) {
-//     console.log(note);
-// }
-
-
-/* 
-
-A   A#  B   C   C#  D   D#  E   F   F#  G   G#
-1   2   3   4   5   6   7   8   9   10  11  12
-
-
-B-Minor = 
-
-B, C#, D, E, F#, G, A
-
-B ROOT      = 3             0
-C# 2ND      = 5             2
-D 3RD       = 6             3
-E 4TH       = 8             5
-F# 5TH      = 10            7
-G 6TH       = 11            8
-A 7TH       = 1             10
-
-*/
+for (let note of minorArray) {
+    console.log(note);
+}
 
 
 
-let fretboard = [];
-
-let startIndex = myArray.indexOf("B");
 
 
-
-// fretboard.push(["1", "2"]);
-
-// fretboard.push(["A", "B"]);
 
 
 // console.log(fretboard);
 
-// for (let i = 0; i <= 5; i++) {
+
+const populateFretboard = () => {
     
-//     fretboard.push(myArray[(startIndex + i) % myArray.length]);
+    
+    const numberOfStrings = 4;
+    const standardTuningSpacing = 5;
+    
+    let startIndex = myArray.indexOf("B");
+    let fretboard = [];
+    
+    
+    for (let i = 0; i <= numberOfStrings; i++) {
+    
+        let tempFretboard = [];
+    
+        for (let i = 0; i < myArray.length; i++) {
+    
+            tempFretboard.push(myArray[(startIndex + i) % myArray.length]);
+    
+        }
+    
+        fretboard.push(tempFretboard);
+    
+        startIndex += standardTuningSpacing;
+        tempFretboard = [];
+    }
 
-//     for (let i = (startIndex + 5); i <= 12; i++) {
-
-//         fretboard.push([myArray[(startIndex + 5) % myArray.length]]);
-
-//     }
- 
-// }
-
-
-
-//generate individual strings
-for (let i = 0; i < myArray.length; i++) {
-
-    fretboard.push(myArray[(startIndex + i) % myArray.length]);
+    console.log(fretboard);
 
 }
 
-
-for (let i = 0; i < 5; i++) {
-
-    fretboard
-
-
-}
-
-console.log(fretboard);
-
-
-
-
-
-
-
-// for (let item of myArray) { 
-
-//     if (item == startingNote) {
-
-//         for (let note of myArray) {
-
-//             fretboard.push(note);
-        
-//             if (fretboard.length == 12) {
-        
-//                 console.log("string loop ended");
-//                 break;
-//             }
-
-//         }
-
-
-//     }
-    
-// }
-
-// for (let i = 0; i < myArray.length; i++) {
-//     // console.log(i);
-
-//     if (myArray[i] == startingNote) {
-//         console.log("Note found " + i + " " + myArray[i]);
-//         // fretboard.push(myArray[i]);
-
-//         for (let notes of myArray) {
-//             fretboard.push(myArray[i]);
-
-//             if (fretboard.length == 12) {
-//                 break;
-//             }
-
-//         }
-//     }
-
-// }
-
-
-
+populateFretboard();
