@@ -50,11 +50,11 @@ for (let item of myArray) {
 }
 
 
-console.log(minorArray);
+// console.log(minorArray);
 
-for (let note of minorArray) {
-    console.log(note);
-}
+// for (let note of minorArray) {
+//     console.log(note);
+// }
 
 
 /* 
@@ -81,23 +81,74 @@ A 7TH       = 1             10
 
 let fretboard = [];
 
-let startingNote = "B";
+let startIndex = myArray.indexOf("B");
 
 
-for (let item of myArray) { 
+
+// fretboard.push(["1", "2"]);
+
+// fretboard.push(["A", "B"]);
 
 
-    fretboard.push(item);
+// console.log(fretboard);
 
-    if (fretboard.length == 12) {
-
-        console.log("string loop ended");
-        break;
-    }
-
-
+// for (let i = 0; i <= 5; i++) {
     
+//     fretboard.push(myArray[(startIndex + i) % myArray.length]);
+
+//     for (let i = (startIndex + 5); i <= 12; i++) {
+
+//         fretboard.push([myArray[(startIndex + 5) % myArray.length]]);
+
+//     }
+ 
+// }
+
+
+
+//generate individual strings
+for (let i = 0; i < myArray.length; i++) {
+
+    fretboard.push(myArray[(startIndex + i) % myArray.length]);
+
 }
+
+
+for (let i = 0; i < 5; i++) {
+
+    fretboard
+
+
+}
+
+console.log(fretboard);
+
+
+
+
+
+
+
+// for (let item of myArray) { 
+
+//     if (item == startingNote) {
+
+//         for (let note of myArray) {
+
+//             fretboard.push(note);
+        
+//             if (fretboard.length == 12) {
+        
+//                 console.log("string loop ended");
+//                 break;
+//             }
+
+//         }
+
+
+//     }
+    
+// }
 
 // for (let i = 0; i < myArray.length; i++) {
 //     // console.log(i);
@@ -120,4 +171,3 @@ for (let item of myArray) {
 
 
 
-console.log(fretboard);
