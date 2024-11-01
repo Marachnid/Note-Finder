@@ -1,0 +1,123 @@
+"use strict";
+
+console.log("something");
+
+let loopCounter = 0;
+
+
+//              0    1     2     3   4     5    6     7    8    9     10   11
+let myArray = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+
+let minorArray = [];
+
+
+let hoveredValue = "G#";
+//open initial search loop
+for (let item of myArray) {
+    //if we find the hoveredValue
+    if (item == hoveredValue) {
+
+        //testing values
+        console.log("Testing finding hovered value - Success");
+        console.log(loopCounter);
+
+        //can be abstracted out later - determine scale notes
+        for (let scaleNote of myArray) {
+
+            minorArray.push(
+                /*
+                    use modulo to wrap back to the beginning of the array and avoid out of bounds indexes when adding
+
+                    if starting at "B"[i=2] and myArray.length = 12
+
+                    to find the 7th interval "A"[i=0] which is 10 positions UP from B (root) : 
+                        myArray(2 + 10 % 12) === remainder = 0
+                        this sends us back to the beginning of the array to find the 7th scale interval
+                */
+                myArray[(loopCounter) % myArray.length],
+                myArray[(loopCounter + 2) % myArray.length],
+                myArray[(loopCounter + 3) % myArray.length],
+                myArray[(loopCounter + 5) % myArray.length],
+                myArray[(loopCounter + 7) % myArray.length],
+                myArray[(loopCounter + 8) % myArray.length],
+                myArray[(loopCounter + 10) % myArray.length]
+
+            );
+            break;
+        }  
+    }
+    loopCounter++;
+}
+
+
+console.log(minorArray);
+
+for (let note of minorArray) {
+    console.log(note);
+}
+
+
+/* 
+
+A   A#  B   C   C#  D   D#  E   F   F#  G   G#
+1   2   3   4   5   6   7   8   9   10  11  12
+
+
+B-Minor = 
+
+B, C#, D, E, F#, G, A
+
+B ROOT      = 3             0
+C# 2ND      = 5             2
+D 3RD       = 6             3
+E 4TH       = 8             5
+F# 5TH      = 10            7
+G 6TH       = 11            8
+A 7TH       = 1             10
+
+*/
+
+
+
+let fretboard = [];
+
+let startingNote = "B";
+
+
+for (let item of myArray) { 
+
+
+    fretboard.push(item);
+
+    if (fretboard.length == 12) {
+
+        console.log("string loop ended");
+        break;
+    }
+
+
+    
+}
+
+// for (let i = 0; i < myArray.length; i++) {
+//     // console.log(i);
+
+//     if (myArray[i] == startingNote) {
+//         console.log("Note found " + i + " " + myArray[i]);
+//         // fretboard.push(myArray[i]);
+
+//         for (let notes of myArray) {
+//             fretboard.push(myArray[i]);
+
+//             if (fretboard.length == 12) {
+//                 break;
+//             }
+
+//         }
+//     }
+
+// }
+
+
+
+console.log(fretboard);

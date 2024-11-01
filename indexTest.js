@@ -11,19 +11,11 @@ const musicalNotes = [
 
 
 
-//initialization method - kept in for control of separate methods/tests
 const init = () => {
     createNotesTable();
 }
 
-/*
-    function builds interactive notes display
-    output 2d array of musical notes into row/column format
 
-    NOTE TO SELF
-    note-highlight event listeners are embedded in loop, the entire loop is not rerun to assign
-    eventlistener stuff, but highlighting all occurences means the entire table will be looped every time
-*/
 const createNotesTable = () => {
 
     //table creation references
@@ -70,6 +62,7 @@ const createNotesTable = () => {
 }
 
 
+
 //determines highlight mode via radio button selection
 const toggleHighlightMode = (cells, hoveredValue) => {
 
@@ -81,6 +74,33 @@ const toggleHighlightMode = (cells, hoveredValue) => {
     (noteHighlight.checked ? highlightSingleNotes(cells, hoveredValue) : null);
     (scaleHighlight.checked ? highlightScaleNotes(cells, hoveredValue) : null);
 }
+
+
+
+
+//SEE toggleHighlightMode()
+//finds and highlights all occurences of hoveredValue
+const highlightSingleNotes = (cells, hoveredValue) => {
+    
+    cells.forEach(cell => {
+        (hoveredValue == cell.textContent ? cell.classList.add("highlight") : null);
+    });
+}
+
+
+
+//SEE toggleHighlightMode()
+//highlights all existing occurences of hoveredValue musical scale notes
+const highlightScaleNotes = (cells, hoveredValue) => {
+
+    //determine scale values
+    const hoveredScale = findScale(hoveredValue);
+
+    cells.forEach(cell => {
+        (hoveredScale.includes(cell.textContent) ? cell.classList.add("highlight") : null);
+    });
+}
+
 
 
 //defines search area for scales to avoid undefined values - finds first occurence of hoveredValue
@@ -120,71 +140,4 @@ const toggleScale = (rowIndex, colIndex) => {
     (majorScaleQuery.checked ? selectedScale = majorScale(rowIndex, colIndex) : null);
 
     return selectedScale;
-}
-
-
-//SEE toggleHighlightMode()
-//finds and highlights all occurences of hoveredValue
-const highlightSingleNotes = (cells, hoveredValue) => {
-    
-    cells.forEach(cell => {
-        (hoveredValue == cell.textContent ? cell.classList.add("highlight") : null);
-    });
-}
-
-
-//SEE toggleHighlightMode()
-//highlights all existing occurences of hoveredValue musical scale notes
-const highlightScaleNotes = (cells, hoveredValue) => {
-
-    //determine scale values
-    const hoveredScale = findScale(hoveredValue);
-
-    cells.forEach(cell => {
-        (hoveredScale.includes(cell.textContent) ? cell.classList.add("highlight") : null);
-    });
-}
-
-
-
-
-
-
-
-
-
-
-
-
-//convert into separate file later on - would need to implement Node.js to separate
-//considering MySQL - would need to save equations, not values
-    //json or a separate file would be better - probably a separate file for now
-const minorScale = (rowIndex, colIndex) => {
-
-    const minorScale = [
-        musicalNotes[rowIndex][colIndex],
-        musicalNotes[rowIndex][colIndex + 2],
-        musicalNotes[rowIndex][colIndex + 3],
-        musicalNotes[rowIndex + 1][colIndex],
-        musicalNotes[rowIndex + 1][colIndex + 2],
-        musicalNotes[rowIndex + 1][colIndex + 3],
-        musicalNotes[rowIndex + 2][colIndex]
-    ];
-
-    return minorScale;
-}
-
-const majorScale = (rowIndex, colIndex) => {
-
-    const majorScale = [
-        musicalNotes[rowIndex][colIndex],
-        musicalNotes[rowIndex][colIndex + 2],
-        musicalNotes[rowIndex + 1][colIndex - 1],
-        musicalNotes[rowIndex + 1][colIndex],
-        musicalNotes[rowIndex + 1][colIndex + 2],
-        musicalNotes[rowIndex + 2][colIndex - 1],
-        musicalNotes[rowIndex + 2][colIndex + 1]
-    ];
-
-    return majorScale;
 }
