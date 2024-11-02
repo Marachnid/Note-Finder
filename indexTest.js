@@ -143,8 +143,6 @@ const toggleHighlightMode = (hoveredValue) => {
 
 //loops through existing cells to add html class to any td matching the hovered SINGLE value
 const highlightSingleNotes = (hoveredValue, cells) => {
-
-    console.log(hoveredValue);
     cells.forEach(cell => {
         (hoveredValue == cell.textContent ? cell.classList.add("highlight") : null);
     });
@@ -155,11 +153,9 @@ const highlightSingleNotes = (hoveredValue, cells) => {
 //loops through existing cells to add html class to any INCLUDED in hoveredScale
 const highlightScaleNotes = (hoveredValue, cells) => {
 
-    //determine scale values via user toggled-radio buttons
-    let highlightedScale = findScale(hoveredValue);
+    //value is assigned in findScale based on user-toggled radio buttons
+    let highlightedScale = determineScale(hoveredValue);
 
-    // console.log("highlightScaleNotes run test");
-    // console.log(highlightedScale);
 
     cells.forEach(cell => {
         (highlightedScale.includes(cell.textContent) ? cell.classList.add("highlight") : null);
@@ -167,77 +163,64 @@ const highlightScaleNotes = (hoveredValue, cells) => {
 }
 
 
-const findScale = (hoveredValue) => {
 
+//determines the correct scale to use and returns 
+const determineScale = (hoveredValue) => {
+
+    //radio references to toggled scales
+    const minorScaleQuery = document.getElementById("minorScale");
+    const majorScaleQuery = document.getElementById("majorScale");
+
+    //hovered scale that will be highlighted
     let hoveredScale = [];
-    let loopCounter = 0;
-
-    console.log(hoveredValue);
 
 
+    //loops through musicalNotes[] to find match with hoveredValue, then determines which scale is checked ON
+    for (let i = 0; i < musicalNotes.length; i++) {
 
-    for (let item of musicalNotes) {
+        if (musicalNotes[i] === hoveredValue) {
 
-        if (item === hoveredValue) {
-
-            hoveredScale.push(
-                musicalNotes[(loopCounter) % musicalNotes.length],
-                musicalNotes[(loopCounter + 2) % musicalNotes.length],
-                musicalNotes[(loopCounter + 3) % musicalNotes.length],
-                musicalNotes[(loopCounter + 5) % musicalNotes.length],
-                musicalNotes[(loopCounter + 7) % musicalNotes.length],
-                musicalNotes[(loopCounter + 8) % musicalNotes.length],
-                musicalNotes[(loopCounter + 10) % musicalNotes.length]
-            );
+            //thinking of how to loop conditions/buttons when more are added
+            (minorScaleQuery.checked ? hoveredScale = assignMinorScale(i) : null);
+            (majorScaleQuery.checked ? hoveredScale = assignMajorScale(i) : null);
 
             break;
         }
-        loopCounter++;
     }
-    
+
+    //returns scale notes to be highlighted in parent function
     return hoveredScale;
 }
 
 
 
+/*
+    use modulo to wrap back to the beginning of the array and avoid out of bounds indexes when adding
 
-// //SEE findScale()
-// //determines which scale to select via radio button selection
-// const toggleScale = (rowIndex, colIndex) => {
+    if starting at "B"[i=2] and myArray.length = 12
 
-//     //radio references
-//     const minorScaleQuery = document.getElementById("minorScale");
-//     const majorScaleQuery = document.getElementById("majorScale");
+    to find the 7th interval "A"[i=0] which is 10 positions UP from B (root) : 
+        myArray(2 + 10 % 12) === remainder = 0
+        this sends us back to the beginning of the array to find the 7th scale interval
+*/
 
-//     let selectedScale;
+//minor scale
+const assignMinorScale = (loopCounter) => {
 
-//     //determine musical scale
-//     (minorScaleQuery.checked ? selectedScale = minorScale(rowIndex, colIndex) : null);
-//     (majorScaleQuery.checked ? selectedScale = majorScale(rowIndex, colIndex) : null);
-
-//     return selectedScale;
-// }
+    //temporary array to hold and return values
+    let minorScale = [];
 
 
+    minorScale.push(
+        musicalNotes[(loopCounter) % musicalNotes.length],
+        musicalNotes[(loopCounter + 2) % musicalNotes.length],
+        musicalNotes[(loopCounter + 3) % musicalNotes.length],
+        musicalNotes[(loopCounter + 5) % musicalNotes.length],
+        musicalNotes[(loopCounter + 7) % musicalNotes.length],
+        musicalNotes[(loopCounter + 8) % musicalNotes.length],
+        musicalNotes[(loopCounter + 10) % musicalNotes.length]
+    );
 
-// //defines search area for scales to avoid undefined values - finds first occurence of hoveredValue
-// //hoveredValue cells on left, right, and bottom edges can have associated values located out of index bounds
-// const findScale = (hoveredValue) => {
-    
-//     //this has to be manual for now - dynamic limiters/initializers are way overkill for a handful of scales
-//     const rowLimit = 2;         // ++ expands search zone downwards
-//     const colInitializer = 1;   // ++ pushes search zone left side -> right
-//     const colLimit = 8;         // -- limits search zone right side -> left
-    
-//     for (let rowIndex = 0; rowIndex < rowLimit; rowIndex++) {
-//         for (let colIndex = colInitializer; colIndex < colLimit; colIndex++) {
-//             if (musicalNotes[rowIndex][colIndex] == hoveredValue) {
+    return minorScale;
 
-//                 //checks which radio options are checked and which musical scale to use
-//                 let hoveredScale = toggleScale(rowIndex, colIndex);
-//                 return hoveredScale;
-//             }
-//         }
-//     }
-// }
-
+}
