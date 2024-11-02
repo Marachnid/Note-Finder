@@ -74,6 +74,32 @@ for (let note of minorArray) {
 
 
 
+const findScale = (hoveredValue, myArray) => {
+
+    for (let item of myArray) {
+
+        if (item == hoveredValue) {
+
+            for (let scaleNote of myArray) {
+
+                minorArray.push(
+                    myArray[(loopCounter) % myArray.length],
+                    myArray[(loopCounter + 2) % myArray.length],
+                    myArray[(loopCounter + 3) % myArray.length],
+                    myArray[(loopCounter + 5) % myArray.length],
+                    myArray[(loopCounter + 7) % myArray.length],
+                    myArray[(loopCounter + 8) % myArray.length],
+                    myArray[(loopCounter + 10) % myArray.length]
+                );
+                break; 
+            }
+        }
+    }
+
+}
+
+
+
 
 
 
@@ -81,7 +107,7 @@ for (let note of minorArray) {
 // console.log(fretboard);
 
 
-const populateFretboard = () => {
+const generateFretboard = () => {
     
     
     const numberOfStrings = 4;
@@ -111,4 +137,4 @@ const populateFretboard = () => {
 
 }
 
-populateFretboard();
+generateFretboard();
