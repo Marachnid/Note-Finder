@@ -157,7 +157,7 @@ const determineScale = (hoveredValue) => {
     //loops through musicalNotes[] to find match with hoveredValue, then determines which scale is checked ON
     for (let index = 0; index < musicalNotes.length; index++) {
 
-        if (musicalNotes[i] === hoveredValue) {
+        if (musicalNotes[index] === hoveredValue) {
 
             //thinking of how to loop conditions/buttons when more are added
             (minorScaleQuery.checked ? hoveredScale = assignMinorScale(index) : null);
@@ -201,7 +201,7 @@ const assignMinorScale = index => {
 
 
 //major scale
-const assignMajorScale = (index) => {
+const assignMajorScale = index => {
 
     //temporary array to hold and return values
     let scale = [];
@@ -222,7 +222,7 @@ const assignMajorScale = (index) => {
 
 
 //hungarian minor scale
-const assignHungarianMinorScale = (index) => {
+const assignHungarianMinorScale = index => {
 
     //temporary array to hold and return values
     let scale = [];
