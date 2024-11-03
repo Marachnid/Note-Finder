@@ -18,7 +18,34 @@ E 4TH       = 8             5
 F# 5TH      = 10            7
 G 6TH       = 11            8
 A 7TH       = 1             10
+
+
+B-Major scale = B, C#, D#, E, F#, G#, A#, (B)
+
+Interval    position        position difference - ascending index
+B ROOT      = 3             0
+C# 2ND      = 5             2
+D# 3RD      = 7             4
+E 4TH       = 8             5
+F# 5TH      = 10            7
+G# 6TH      = 12            9
+A# 7TH      = 2             11
+
+
+B-Hungarian-Minor scale = B, C#, D, F, F#, G, A#, (B)
+
+Interval    position        position difference - ascending index
+B ROOT      = 3             0
+C# 2ND      = 5             2
+D 3RD       = 6             3
+E 4TH       = 9             6
+F# 5TH      = 10            7
+G 6TH       = 11            8
+A# 7TH      = 2             11
+
 */
+
+
 
 
 
